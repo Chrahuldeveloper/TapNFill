@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./src/index.css" />
+    <link
+      rel="stylesheet"
+      href="./font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css"
+    />
+    <title>SnapFill Extension</title>
+  </head>
+  <body class="bg-[#0f172a] text-white font-sans p-4 min-h-screen">
+    <div class="max-w-md mx-auto">
+      <div class="bg-[#1e293b] rounded-xl p-4 shadow-md">
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <h2 class="text-lg font-semibold">SnapFill</h2>
+            <p class="text-sm text-gray-400">Manage your autofill data</p>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <input
+            type="text"
+            placeholder="Search snippets..."
+            class="w-full p-2 rounded-md bg-[#334155] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div
+          class="mb-4 space-y-3 bg-[#0f172a] p-5 rounded-lg hidden"
+          id="AddSnippet"
+        >
+          <div class="flex justify-between items-center">
+            <h1 class="text-white text-sm font-semibold">Add new Data</h1>
+            <i class="fa fa-times cursor-pointer text-white" id="togglebtn"></i>
+          </div>
+          <input
+            type="text"
+            placeholder="Title"
+            id="tittle"
+            class="w-full p-2 rounded-md bg-[#334155] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="text"
+            placeholder="Value"
+            id="value"
+            class="w-full p-2 rounded-md bg-[#334155] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <div class="flex justify-center my-5">
+            <button
+              id="saveData"
+              class="bg-[#7c3bed] w-full text-sm rounded-lg py-2"
+            >
+              Add new Snippet
+            </button>
+          </div>
+        </div>
+
+        <div id="snippetList" class="space-y-3 h-[50vh] overflow-y-scroll pr-1">
+          <div class="bg-[#334155] rounded-lg p-3 hidden" id="databox">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-sm font-medium"></span>
+            </div>
+            <p class="text-sm text-gray-300"></p>
+          </div>
+        </div>
+
+        <div class="flex justify-center my-5">
+          <button
+            id="addsnippet"
+            class="bg-[#7c3bed] text-sm w-full rounded-lg py-2"
+          >
+            Add new Snippet
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>
