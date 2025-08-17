@@ -1,5 +1,5 @@
 const createContextMenus = () => {
-  chrome.createMenus.removeAll(() => {
+  chrome.contextMenus.removeAll(() => {
     chrome.storage.sync.get("userData", ({ userData }) => {
       if (!Array.isArray(userData)) return;
       userData.forEach((item, index) => {
@@ -30,9 +30,27 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-  console.log("Menu item clicked:", info.menuItemId);
-
   if (info.menuItemId.startsWith("snapfill_")) {
     const index = parseInt(info.menuItemId.split("_")[1]);
+
+    chrome.storage.sync.get("userData", ({ userData }) => {
+      if (!Array.isArray(userData)) return;
+      const item = userData[index];
+      chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: (value) => {
+          const active = document.activeElement;
+          if (!active) return;
+          if (active.tagName === "INPUT" || active.tagName === "TEXTAREA") {
+            active.value = value;
+            active.dispatchEvent(new Event("input", { bubbles: true }));
+          } else if (active.isContentEditable) {
+            active.innerText = value;
+            active.dispatchEvent(new Event("input", { bubbles: true }));
+          }
+        },
+        args: [item.Value],
+      });
+    });
   }
 });
