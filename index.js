@@ -5,6 +5,9 @@ const tittle = document.getElementById("tittle");
 const value = document.getElementById("value");
 const saveData = document.getElementById("saveData");
 const databox = document.getElementById("databox");
+const searchData = document.getElementById("searchData");
+const snippetList = document.getElementById("snippetList");
+
 addsnippet.addEventListener("click", () => {
   AddSnippetBox.classList.remove("hidden");
 });
@@ -39,8 +42,6 @@ const storeData = () => {
 
 saveData.addEventListener("click", storeData);
 const getStorageData = () => {
-  const snippetList = document.getElementById("snippetList");
-
   chrome.storage.sync.get("userData", ({ userData }) => {
     if (!Array.isArray(userData)) return;
 
@@ -61,4 +62,30 @@ const getStorageData = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   getStorageData();
+});
+
+searchData.addEventListener("input", (e) => {
+  console.log("searching..");
+  const searchValue = e.target.value.toLowerCase();
+
+  chrome.storage.sync.get("userData", (result) => {
+    const currentData = result.userData || [];
+
+    const searchedValues = currentData.filter((item) => {
+      return (
+        item.Value.toLowerCase().includes(searchValue) ||
+        item.Tittle.toLowerCase().includes(searchValue)
+      );
+    });
+
+    snippetList.innerHTML = "";
+    searchedValues.forEach(({ Tittle, Value }) => {
+      const clone = databox.cloneNode(true);
+      clone.id = "";
+      clone.classList.remove("hidden");
+      clone.querySelector("span").textContent = Tittle;
+      clone.querySelector("p").textContent = Value;
+      snippetList.append(clone);
+    });
+  });
 });
