@@ -13,12 +13,18 @@
     <style>
       body {
         min-width: 500px;
-        min-height: 300px;
+        height: 500px; /* lock popup height */
+        overflow: hidden; /* prevent body from scrolling */
+      }
+
+      #snippetList {
+        max-height: 300px; /* restrict snippet area */
+        overflow-y: auto; /* scroll only inside */
       }
     </style>
   </head>
   <body class="bg-[#0f172a] text-white p-4">
-    <div class="w-[7000px]">
+    <div class="">
       <div class="bg-[#1e293b] rounded-xl p-4 shadow-md">
         <div class="flex justify-between items-center mb-4">
           <div>
@@ -34,6 +40,7 @@
             class="w-full p-2 rounded-md bg-[#334155] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
+
         <div
           class="mb-4 space-y-3 bg-[#0f172a] p-5 rounded-lg hidden"
           id="AddSnippet"
@@ -64,7 +71,7 @@
           </div>
         </div>
 
-        <div id="snippetList" class="space-y-3 h-[50vh] overflow-y-scroll pr-1">
+        <div id="snippetList" class="space-y-3 pr-1">
           <div class="bg-[#334155] rounded-lg p-3 hidden" id="databox">
             <div class="flex justify-between items-center mb-1">
               <span class="text-sm font-medium"></span>
