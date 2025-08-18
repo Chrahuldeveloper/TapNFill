@@ -7,7 +7,7 @@ const saveData = document.getElementById("saveData");
 const databox = document.getElementById("databox");
 const searchData = document.getElementById("searchData");
 const snippetList = document.getElementById("snippetList");
-
+const deleteValue = document.getElementById("deleteValue");
 addsnippet.addEventListener("click", () => {
   AddSnippetBox.classList.remove("hidden");
 });
@@ -86,6 +86,23 @@ searchData.addEventListener("input", (e) => {
       clone.querySelector("span").textContent = Tittle;
       clone.querySelector("p").textContent = Value;
       snippetList.append(clone);
+    });
+  });
+});
+
+deleteValue.addEventListener("click", () => {
+  const tittle = "";
+
+  chrome.storage.sync.get("userData", (result) => {
+    const currentData = result.userData || [];
+
+    const updatedList = currentData.filter((item) => {
+      return item.Tittle !== tittle;
+    });
+
+    chrome.storage.sync.set({ userData: updatedList }, () => {
+      getStorageData();
+      chrome.runtime.sendMessage({ action: "recreate_context_menu" });
     });
   });
 });
