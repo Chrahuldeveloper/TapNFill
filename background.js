@@ -4,7 +4,7 @@ const createContextMenus = () => {
       if (!Array.isArray(userData)) return;
       userData.forEach((item, index) => {
         chrome.contextMenus.create({
-          id: `snapfill_${index}`,
+          id: `TapNFill_${index}`,
           title: `${item.Tittle} - ${item.Value}`,
           contexts: ["editable"],
         });
@@ -30,9 +30,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-  if (info.menuItemId.startsWith("snapfill_")) {
+  if (info.menuItemId.startsWith("TapNFill")) {
     const index = parseInt(info.menuItemId.split("_")[1]);
-
     chrome.storage.sync.get("userData", ({ userData }) => {
       if (!Array.isArray(userData)) return;
       const item = userData[index];
