@@ -21,6 +21,9 @@ Tired of typing the same name, email, or phone number into forms again and again
 
 ---
 
+## Link to Install
+https://chromewebstore.google.com/detail/tapnfill/mgenpnofgolhidfgggfhicbigpjmnokn?authuser=0&hl=en
+
 ## 📦 Installation  
 
 1. Clone the repo:  
